@@ -4,7 +4,7 @@
 	</head>
 	<body>
 		<div style="text-align:center; vertical-align:middle; padding: 10%;">
-			<input type="text" /> <button type="button">Search</button> <br /> <br />
+			<form action="/listing" method="POST">	<input type="text" style="width=40%" />	<input type="submit" value="Search" />	</form>
 			<table border="1" style="width:100%">
 				<tr style="background-color:#D3D3D3;">
 					<td><h3 style="margin:3; text-align:center;">Acronym</h3></td>

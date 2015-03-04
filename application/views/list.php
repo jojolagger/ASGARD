@@ -5,7 +5,7 @@
 	<body>
 		<div style="text-align:center; vertical-align:middle; padding: 10%;">
 			<input type="text" /> <button type="button">Search</button>
-			<h2>ARC</h2>
+			<h2>{acronym}</h2>
 			<button type="button" style="width:100px; height:50px;">Add</button>
 			<br /> <br />
 			<table border="1" style="width:100%">
