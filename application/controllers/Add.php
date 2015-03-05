@@ -56,7 +56,12 @@ class Add extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('add');
+		
+		$this->load->library('parser');
+		$this->data["acronym"] = "ARC";
+		
+		$this->data['data'] = &$this->data;
+		$this->parser->parse('add', $this->data);
 	}
 }
 

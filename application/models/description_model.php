@@ -10,8 +10,7 @@ class description_model extends CI_Model
 	public function get_by_acronym_id($id, $need_confirmed = 0)
 	{
 		$query_string = "SELECT * FROM details WHERE acronym_id = " . $id;
-		if($need_confirmed == TRUE)
-			$query_string .= " AND confirmed=1;";
+		$query_string .= " AND confirmed=" . $need_confirmed . ";";
 		
 		$query = $this->db->query($query_string);
 		
