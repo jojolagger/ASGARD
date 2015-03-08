@@ -31,8 +31,7 @@ class description_model extends CI_Model
 	public function get_all($need_confirmed = 0)
 	{
 		$query_string = "SELECT * FROM details";
-		if($need_confirmed == TRUE)
-			$query_string .= " WHERE confirmed=1;";
+		$query_string .= " WHERE confirmed=" . $need_confirmed . ";";
 		
 		$query = $this->db->query($query_string);
 		
@@ -42,12 +41,12 @@ class description_model extends CI_Model
 	public function add($acronym_id, $expansion, $description, $confirmed)
 	{
 		$query = $this->db->query("INSERT INTO details (acronym_id, expansion, description, confirmed) VALUES (" . $acronym_id . ",\"" . $expansion . "\",\"" . $description . "\"," . $confirmed . ");");
-		return $query->result();
+		return $query;
 	}
 	
 	public function confirm($description_id)
 	{
 		$query = $this->db->query("UPDATE details SET confirmed=1 WHERE description_id=" . $description_id . ";");
-		return $query->result();
+		return $query;
 	}
 }

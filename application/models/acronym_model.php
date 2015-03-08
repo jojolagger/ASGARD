@@ -9,13 +9,13 @@ class acronym_model extends CI_Model
 	
 	public function get_by_name($name)
 	{
-		$query = $this->db->query("SELECT * FROM acronyms WHERE name = " . $name);
+		$query = $this->db->query("SELECT * FROM acronyms WHERE name = \"" . $name . "\"");
 		return $query->result();
 	}
 	
 	public function get_by_id($id)
 	{
-		$query = $this->db->query("SELECT * FROM acronyms WHERE id = " . $id);
+		$query = $this->db->query("SELECT * FROM acronyms WHERE id = \"" . $id . "\"");
 		return $query->result();
 	}
 	
@@ -27,7 +27,7 @@ class acronym_model extends CI_Model
 	
 	public function add($name)
 	{
-		$query = $this->db->query("INSERT INTO acronyms (name) VALUES (\'" . $name . "\');");
-		return query->result();
+		$query = $this->db->query("INSERT INTO acronyms (name) VALUES (\"" . $name . "\");");
+		return $query;
 	}
 }

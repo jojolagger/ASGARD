@@ -56,12 +56,53 @@ class Add extends CI_Controller {
 	 */
 	public function index()
 	{
-		
+		//Unused
 		$this->load->library('parser');
 		$this->data["acronym"] = "ARC";
 		
 		$this->data['data'] = &$this->data;
 		$this->parser->parse('add', $this->data);
+	}
+	
+	public function form($posty)
+	{
+		$this->load->library('parser');
+		$this->load->helper('url');
+		$this->load->model('acronym_model');
+		$this->load->model('description_model');
+		
+		$target = $this->acronym_model->get_by_id($posty);
+		if($target == null )
+		{
+			redirect('welcome');
+		}
+		else
+		{
+			$this->data['acronym'] = $target[0]->name;
+		}
+		$this->data['id'] = $target[0]->id;
+		
+		$this->data['data'] = &$this->data;
+		$this->parser->parse('add', $this->data);
+	}
+	
+	public function submit($id)
+	{
+		$this->load->library('parser');
+		$this->load->helper('url');
+		$this->load->model('acronym_model');
+		$this->load->model('description_model');
+		
+		$postD = $this->input->post('description');
+		$postE = $this->input->post('expansion');
+		if( !$postD && !$postE)
+		{
+			redirect('welcome');
+		}
+		
+		$this->description_model->add($id, $postE, $postD, 0);
+		$target = $this->acronym_model->get_by_id($id);
+		redirect('listing/view/' . $target[0]->name);
 	}
 }
 

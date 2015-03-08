@@ -56,7 +56,30 @@ class Admin extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('admin');
+		$this->load->library('parser');
+		$this->load->helper('url');
+		$this->load->model('acronym_model');
+		$this->load->model('description_model');
+		
+		$data = $this->description_model->get_all(0);
+		foreach($data as $item){
+			$store = $this->acronym_model->get_by_id($item->acronym_id);
+			$item->acronym = $store[0]->name;
+		}
+		$this->data['item'] = $data;
+		
+		$this->data['data'] = &$this->data;
+		$this->parser->parse('admin', $this->data);
+	}
+	
+	public function confirm($id){
+		$this->load->library('parser');
+		$this->load->helper('url');
+		$this->load->model('description_model');
+		
+		$this->description_model->confirm($id);
+	
+		redirect('/admin');
 	}
 }
 

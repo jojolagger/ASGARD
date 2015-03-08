@@ -56,8 +56,78 @@ class Listing extends CI_Controller {
 	 */
 	public function index()
 	{
-		//Load items from database
-		$this->load->view('list');
+		$this->load->library('parser');
+		$this->load->helper('url');
+		$this->load->model('acronym_model');
+		$this->load->model('description_model');
+		$items = null;
+		$posty = $this->input->post('searched');
+		if( !$posty)
+		{
+			redirect('welcome');
+		}
+		$this->data['acronym'] = $posty;
+		
+		$target = $this->acronym_model->get_by_name($posty);
+		if( $target == null )
+		{
+			$this->acronym_model->add($posty);
+			$this->data['acronym'] = $posty . " added to database";
+		}
+		else
+		{
+			$this->data['acronym'] = $posty . " found in database";
+			$items = $this->description_model->get_by_acronym_id($target[0]->id, 1);
+		}
+		if($items == null)
+		{
+			$items = array();
+			//$ha = new {}
+			//$ha->expansion = "No Expansions Found";
+			//$ha->description = "Feel free to add some";
+			$items[0] = (object)array('expansion' => "No Expansions Found", 'description' => "Feel free to add some");
+			$target = $this->acronym_model->get_by_name($posty);
+		}
+		$this->data['items'] = $items;
+		$this->data['id'] = $target[0]->id;
+		$this->data['data'] = &$this->data;
+		$this->parser->parse('list', $this->data);
+	}
+	
+	public function view($posty)
+	{
+		$this->load->library('parser');
+		$this->load->helper('url');
+		$this->load->model('acronym_model');
+		$this->load->model('description_model');
+		$items = null;
+		
+		$this->data['acronym'] = $posty;
+		
+		$target = $this->acronym_model->get_by_name($posty);
+		if($target == null )
+		{
+			$this->acronym_model->add($posty);
+			$this->data['acronym'] = $posty . " added to database";
+		}
+		else
+		{
+			$this->data['acronym'] = $posty . " found in database";
+			$items = $this->description_model->get_by_acronym_id($target[0]->id, 1);
+		}
+		if($items == null)
+		{
+			$items = array();
+			//$ha = new {}
+			//$ha->expansion = "No Expansions Found";
+			//$ha->description = "Feel free to add some";
+			$items[0] = (object)array('expansion' => "No Expansions Found", 'description' => "Feel free to add some");
+			$target = $this->acronym_model->get_by_name($posty);
+		}
+		$this->data['items'] = $items;
+		$this->data['id'] = $target[0]->id;
+		$this->data['data'] = &$this->data;
+		$this->parser->parse('list', $this->data);
 	}
 }
 
