@@ -92,6 +92,7 @@ class Listing extends CI_Controller {
 		$this->data['id'] = $target[0]->id;
 		$this->data['data'] = &$this->data;
 		$this->parser->parse('list', $this->data);
+		$this->load->view('footer');
 	}
 	
 	public function view($posty)
@@ -128,6 +129,7 @@ class Listing extends CI_Controller {
 		$this->data['id'] = $target[0]->id;
 		$this->data['data'] = &$this->data;
 		$this->parser->parse('list', $this->data);
+		$this->load->view('footer');
 	}
 }
 

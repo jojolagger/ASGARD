@@ -84,6 +84,7 @@ class Add extends CI_Controller {
 		
 		$this->data['data'] = &$this->data;
 		$this->parser->parse('add', $this->data);
+		$this->load->view('footer');
 	}
 	
 	public function submit($id)

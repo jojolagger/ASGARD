@@ -70,6 +70,7 @@ class Admin extends CI_Controller {
 		
 		$this->data['data'] = &$this->data;
 		$this->parser->parse('admin', $this->data);
+		$this->load->view('footer');
 	}
 	
 	public function confirm($id){
